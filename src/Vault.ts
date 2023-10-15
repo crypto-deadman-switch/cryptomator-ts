@@ -7,7 +7,7 @@ import { base64url, jwtVerify, SignJWT } from "jose";
 import { DecryptionError, DecryptionTarget, ExistsError, InvalidSignatureError } from "./Errors";
 import { EncryptedDir } from "./encrypted/EncryptedDir";
 import { EncryptedFile } from "./encrypted/EncryptedFile";
-import Base64 from "js-base64";
+import { Base64 } from "js-base64";
 import b32 from 'base32-encode'
 import { v4 } from "uuid";
 import { EncryptedItem } from "./encrypted/EncryptedItemBase";
@@ -118,7 +118,7 @@ export class Vault {
 	 * @param options.queryOpts Option that controls how often the data provider should be queried
 	 * @param options.callback Function to call once a time consuming operation is completed
 	 * @returns The vault object for the newly created vault
-	 * 
+	 *
 	 * Currently, custom masterkey.cryptomator location and algorithm other than HS256 is not supported.
 	 * As a result, vault.cryptomator's decoded header will always be the same.
 	 */
@@ -167,7 +167,7 @@ export class Vault {
 		buffer.set(encKeyBuffer, 32);
 		const siv = new SIV(AES, buffer);
 		buffer.set(encKeyBuffer, 0);
-		buffer.set(macKeyBuffer, 32);		
+		buffer.set(macKeyBuffer, 32);
 
 		const kek = await crypto.subtle.importKey('raw', kekBuffer, 'AES-KW', false, ['wrapKey']);
 		kekBuffer.fill(0);
@@ -232,7 +232,7 @@ export class Vault {
 			}, options.queryOpts ?? {concurrency: -1});
 			const rootDir = await vault.getRootDirPath();
 			await provider.createDir(rootDir, true);
-		
+
 			return vault;
 		} catch (e) {
 			if(name) await provider.removeDir(dir);
@@ -243,7 +243,7 @@ export class Vault {
 			]);
 			throw e;
 		}
-		
+
 	}
 
 	/**
@@ -498,7 +498,7 @@ export class Vault {
 	async getRootDir(){
 		return await EncryptedDir.open(this, '', await this.getRootDirPath(), 'Root', null, new Date(), false, {dirId: '' as DirID});
 	}
-	
+
 	/**
 	 * Create a directory in root
 	 * @param name Name of the folder

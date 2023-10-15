@@ -1,8 +1,8 @@
 import { AES } from "@stablelib/aes";
 import { SIV } from "@stablelib/siv";
 import { scrypt } from "scrypt-js";
-import { DataProvider, ProgressCallback } from "./DataProvider";
-import { DirID, EncryptionKey, Item, ItemPath, MACKey } from "./types";
+import type { DataProvider, ProgressCallback } from "./DataProvider";
+import type { DirID, EncryptionKey, Item, ItemPath, MACKey } from "./types";
 import { base64url, jwtVerify, SignJWT } from "jose";
 import { DecryptionError, DecryptionTarget, ExistsError, InvalidSignatureError } from "./Errors";
 import { EncryptedDir } from "./encrypted/EncryptedDir";
@@ -10,7 +10,7 @@ import { EncryptedFile } from "./encrypted/EncryptedFile";
 import { Base64 } from "js-base64";
 import b32 from 'base32-encode'
 import { v4 } from "uuid";
-import { EncryptedItem } from "./encrypted/EncryptedItemBase";
+import type { EncryptedItem } from "./encrypted/EncryptedItemBase";
 
 type VaultConfigHeader = {
 	kid: string;

@@ -1,7 +1,7 @@
 import { base64url } from "jose";
-import { ProgressCallback } from "../DataProvider";
+import type { ProgressCallback } from "../DataProvider";
 import { DecryptionTarget, InvalidSignatureError } from "../Errors";
-import { ContentKey, DirID, File, ItemPath } from "../types";
+import type { ContentKey, DirID, File, ItemPath } from "../types";
 import { Vault } from "../Vault";
 import { EncryptedDir } from "./EncryptedDir";
 import { EncryptedItemBase } from "./EncryptedItemBase";
@@ -45,7 +45,7 @@ export class EncryptedFile extends EncryptedItemBase implements File{
 	 * Encrypt a file, and upload it to the vault
 	 * @param vault The vault this item will be encrypted and uploaded to
 	 * @param name Name of the file to encrypt
-	 * @param parent Directory ID of the parent ID. Can be EncryptedDir, DirID, or null (which indicates root). 
+	 * @param parent Directory ID of the parent ID. Can be EncryptedDir, DirID, or null (which indicates root).
 	 * @param content Content of the file prior to encryption
 	 * @param callbacks.encryption Callback that will be called whenever a chunk gets encrypted
 	 * @param callbacks.upload Callback that will be called whenever data provider invokes callback in upload
@@ -83,9 +83,9 @@ export class EncryptedFile extends EncryptedItemBase implements File{
 			},
 			vault.encKey,
 			payload
-		));		
-		
-		
+		));
+
+
 		let encrypted = new Uint8Array(88);
 		encrypted.set(nonce, 0);
 		encrypted.set(encPayload, 16);
@@ -101,7 +101,7 @@ export class EncryptedFile extends EncryptedItemBase implements File{
 			}, chunk, i));
 			if(callbacks?.encryption) callbacks.encryption(i, iterCount);
 		}
-		
+
 		let parentId: DirID;
 		if(parent === null) parentId = '' as DirID;
 		else if(typeof(parent) === 'string') parentId = parent;
@@ -125,13 +125,13 @@ export class EncryptedFile extends EncryptedItemBase implements File{
 				await vault.provider.removeDir(fileDir);
 				throw e;
 			}
-			
+
 		} else {
 			const fileDir = `${encryptedDir}/${fileName}.c9r` as ItemPath;
 			await vault.provider.writeFile(fileDir, encrypted, callbacks?.upload);
 			return new EncryptedFile(vault, fileName, fileDir, name, parentId, new Date(), false);
 		}
-		
+
 	}
 
 	constructor(vault: Vault, name: string, fullName: ItemPath, decryptedName: string, parentId: DirID, lastMod: Date, shortened: boolean){

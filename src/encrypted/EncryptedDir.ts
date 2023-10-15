@@ -1,5 +1,4 @@
-import { base64url } from "jose";
-import { Directory, DirID, ItemPath } from "../types";
+import type { Directory, DirID, ItemPath } from "../types";
 import { Vault } from "../Vault";
 import { EncryptedFile } from "./EncryptedFile";
 import { EncryptedItemBase } from "./EncryptedItemBase";
@@ -19,7 +18,7 @@ export class EncryptedDir extends EncryptedItemBase implements Directory{
 	 * @param options.cacheDirId If true, the ID of the directory will be queried, and cached into the object.
 	 * @param options.dirId If set, this ID will be cached and used. Do not set this if you are not certain it is the correct directory ID. Overrides options.cacheDirId
 	 * @returns EncryptedDir object
-	 * 
+	 *
 	 * If this object corresponds to the root folder, then the following are always true:
 	 * - this.parent is null
 	 * - this.name is "" (empty)
@@ -55,7 +54,7 @@ export class EncryptedDir extends EncryptedItemBase implements Directory{
 	 * Get the ID of this directory
 	 * @param clearCache Query the provider to get updated directory ID.
 	 * @returns ID of this directory
-	 * 
+	 *
 	 * Calling this method will cache ID if it is not already.
 	 */
 	async getDirId(clearCache?: true){

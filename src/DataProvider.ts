@@ -1,4 +1,4 @@
-import { Item } from "./types";
+import type { Item } from "./types";
 
 export type ProgressCallback = (current: number, total: number) => void;
 

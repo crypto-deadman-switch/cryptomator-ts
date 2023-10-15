@@ -1,5 +1,5 @@
 import { base64url } from "jose";
-import { DirID, ItemBase, ItemPath } from "../types";
+import type { DirID, ItemBase, ItemPath } from "../types";
 import { Vault } from "../Vault";
 import { EncryptedDir } from "./EncryptedDir";
 import { EncryptedFile } from "./EncryptedFile";
@@ -16,7 +16,7 @@ export abstract class EncryptedItemBase implements ItemBase{
 		 * If shortened:
 		 * this.name contains the content of name.c9s file
 		 * this.fullName points to the directory that contains the name.c9s file
-		 * 
+		 *
 		 * If not:
 		 * this.fullName points to the directory/file this object corresponds to
 		 * this.name is the last part of this.fullName
